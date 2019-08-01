@@ -19,9 +19,6 @@
 }
 
 .hole {
-  /* background-image: url('./images/dirt.png');
-  background-repeat: no-repeat;
-  background-size: 70%; */
   border-style: solid;
   border-color: black;
 }
@@ -30,4 +27,15 @@
   background-image: url('./images/mole.png');
   background-repeat: no-repeat;
   z-index: 2;
+}
+
+#true {
+  background-image: url('./images/grass.jpeg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: grid;
+  height: 90vh;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  grid-template-rows: repeat(3, minmax(100px, 1fr));
+  z-index: 1;
 }

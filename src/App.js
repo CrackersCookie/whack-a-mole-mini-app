@@ -2,13 +2,15 @@ import React from 'react';
 import './App.css';
 import CreateBoard from './components/CreateBoard';
 import StartGame from './components/StartGame';
+import ouch from './sounds/ouch.mp3'
+import background from './sounds/background.mp3'
 
 class App extends React.Component {
-
   state = {
     cells: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     hole: null,
     score: 0,
+    hit: false,
     timeUp: false
   }
 
@@ -16,10 +18,14 @@ class App extends React.Component {
     return (
       <div className="App" >
         <header>
-          <h1>Whack-a-mole <span className="score">0</span></h1>
+          <h1>Whack-a-mole - score: <span className="score">{`${this.state.score}`}</span></h1>
           <StartGame start={this.start} />
         </header>
-        <CreateBoard cells={this.state.cells} hole={this.state.hole} checkAlive={this.checkAlive} />
+        <CreateBoard
+          cells={this.state.cells}
+          hole={this.state.hole}
+          checkAlive={this.checkAlive}
+          timeUp={this.state.timeUp} />
       </div>
     );
   }
@@ -27,14 +33,19 @@ class App extends React.Component {
   start = () => {
     this.setState({ score: 0, timeUp: false })
     this.peep();
-    setTimeout(() => this.setState({ timeUp: true }), 20000)
+    const music = new Audio(background)
+    music.play()
+    setTimeout(() => {
+      this.setState({ timeUp: true })
+      music.pause();
+    }, 20000)
   }
 
-  randomTime(min, max) {
+  randomTime = (min, max) => {
     return Math.round(Math.random() * (max - min) + min);
   }
 
-  randomHole(holes) {
+  randomHole = (holes) => {
     const index = Math.floor(Math.random() * holes.length);
     const hole = holes[index];
     if (hole === this.hole) {
@@ -43,19 +54,28 @@ class App extends React.Component {
     return hole;
   }
 
-  peep() {
-    const time = this.randomTime(200, 1000);
+  peep = () => {
+    const time = this.randomTime(500, 1000);
     const hole = this.randomHole(this.state.cells);
     this.setState({ hole })
     setTimeout(() => {
-      if (!this.timeUp) this.peep();
+      this.setState({ hit: false })
+      if (!this.state.timeUp) {
+        this.peep()
+      }
     }, time);
   }
 
-  checkAlive(e) {
-    console.log(e.target.value)
+  checkAlive = (e) => {
+    if (e === 'mole') {
+      const moleOuch = new Audio(ouch);
+      moleOuch.play();
+      this.setState(currentState => {
+        currentState.score += 1;
+        return { score: currentState.score, hit: true }
+      })
+    }
   }
-
 }
 
 export default App;
