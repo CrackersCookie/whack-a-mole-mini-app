@@ -1,7 +1,6 @@
 import React from 'react'
 
 const CreateBoard = ({ cells, hole, checkAlive, timeUp }) => {
-  console.log(timeUp)
   return (<section className={"board"} id={`${timeUp}`}>
     {cells.map(cell => {
       let image = 'grass'

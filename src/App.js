@@ -32,7 +32,7 @@ class App extends React.Component {
   }
 
   start = () => {
-    this.setState({ score: 0, timeUp: false })
+    this.setState({ score: 0, timeUp: false, time: 20 })
     this.peep();
     const music = new Audio(background);
     music.play();
@@ -81,7 +81,7 @@ class App extends React.Component {
   }
 
   checkAlive = (e) => {
-    if (e === 'mole') {
+    if (e === 'mole' && !this.state.timeUp) {
       const moleOuch = new Audio(ouch);
       moleOuch.play();
       this.setState(currentState => {
