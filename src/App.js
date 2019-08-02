@@ -81,7 +81,7 @@ class App extends React.Component {
   }
 
   checkAlive = (e) => {
-    if (e === 'mole' && !this.state.timeUp) {
+    if (e === 'mole' && !this.state.timeUp && !this.state.hit) {
       const moleOuch = new Audio(ouch);
       moleOuch.play();
       this.setState(currentState => {
