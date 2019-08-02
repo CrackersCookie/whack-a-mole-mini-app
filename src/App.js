@@ -20,8 +20,7 @@ class App extends React.Component {
       <div className="App" >
         <header>
           <h1>Whack-a-mole</h1>
-          <h2>score: <span className="score">{`${this.state.score}`}</span>  |  time: <span className="time">{`${this.state.time}`}</span></h2>
-          <StartGame start={this.start} />
+          <h2>score: <span className="score">{`${this.state.score}`}</span>  |  time: <span className="time">{`${this.state.time}`}  </span><span><StartGame start={this.start} /></span></h2>
         </header>
         <CreateBoard
           cells={this.state.cells}
