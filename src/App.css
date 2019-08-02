@@ -1,5 +1,13 @@
 .App {
   text-align: center;
+  color: #9D5335;
+}
+
+button {
+  padding: 0.5em;
+  color: white;
+  background-color: #9D5335;
+  font-size: 1em;
 }
 
 * {
@@ -9,7 +17,7 @@
 
 .board {
   background-image: url('./images/grass.jpeg');
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-size: 100%;
   display: grid;
   height: 90vh;
@@ -20,18 +28,21 @@
 
 .hole {
   border-style: solid;
-  border-color: black;
+  border-color: #9D5335;
 }
 
 .mole {
   background-image: url('./images/mole.png');
   background-repeat: no-repeat;
+  object-fit: scale-down;
+  max-height: 100%;
+  max-width: 100%;
   z-index: 2;
 }
 
 #true {
-  background-image: url('./images/grass.jpeg');
-  background-repeat: no-repeat;
+  background-image: url('./images/game-over.jpg');
+  background-repeat: repeat;
   background-size: 100%;
   display: grid;
   height: 90vh;

@@ -11,14 +11,16 @@ class App extends React.Component {
     hole: null,
     score: 0,
     hit: false,
-    timeUp: false
+    timeUp: false,
+    time: 20,
   }
 
   render() {
     return (
       <div className="App" >
         <header>
-          <h1>Whack-a-mole - score: <span className="score">{`${this.state.score}`}</span></h1>
+          <h1>Whack-a-mole</h1>
+          <h2>score: <span className="score">{`${this.state.score}`}</span>  |  time: <span className="time">{`${this.state.time}`}</span></h2>
           <StartGame start={this.start} />
         </header>
         <CreateBoard
@@ -33,13 +35,26 @@ class App extends React.Component {
   start = () => {
     this.setState({ score: 0, timeUp: false })
     this.peep();
-    const music = new Audio(background)
-    music.play()
+    const music = new Audio(background);
+    music.play();
+    this.timer();
     setTimeout(() => {
-      this.setState({ timeUp: true })
+      this.setState({ timeUp: true });
       music.pause();
     }, 20000)
   }
+
+  timer = () => {
+    setTimeout(() => {
+      this.setState(currentState => {
+        currentState.time -= 1;
+        return currentState.time;
+      })
+      if (!this.state.timeUp) this.timer();
+    }, 1000)
+  }
+
+
 
   randomTime = (min, max) => {
     return Math.round(Math.random() * (max - min) + min);
@@ -55,7 +70,7 @@ class App extends React.Component {
   }
 
   peep = () => {
-    const time = this.randomTime(500, 1000);
+    const time = this.randomTime(300, 1000);
     const hole = this.randomHole(this.state.cells);
     this.setState({ hole })
     setTimeout(() => {
